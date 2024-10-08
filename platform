@@ -1,4 +1,4 @@
-// Ultimate EconUZ Platform Codebase - Enhanced Design (Complete Code Ready for GitHub)
+// Ultimate EconUZ Platform Codebase - Enhanced Design (Ready-to-Deploy Version)
 
 // FRONTEND - React & Next.js with TypeScript & TailwindCSS
 
@@ -64,6 +64,9 @@ export default Home;
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const router = express.Router();
 
@@ -176,7 +179,8 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
-CMD ["npm", "run", "dev"]
+RUN npm run build
+CMD ["npm", "run", "start"]
 
 // docker-compose.yml
 version: '3.8'
@@ -194,3 +198,7 @@ services:
       - '3000:3000'
     environment:
       - NODE_ENV=production
+    command: npm run start
+
+// Ensure proper environment variable configuration and local setup
+// Create an .env file in both backend and frontend directories for environment variables.
