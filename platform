@@ -1,0 +1,165 @@
+// Ultimate EconUZ Platform Codebase - Enhanced Design
+
+// FRONTEND - React & Next.js with TypeScript & TailwindCSS
+// File structure:
+// - src/
+//   - components/  (Reusable components like Header, Footer, Dashboard, Sidebar)
+//   - pages/       (Specific pages like Home, Courses, Profile, Real-Time Dashboard)
+//   - hooks/       (Custom React hooks for reusable logic)
+//   - context/     (Context API for managing global application state)
+//   - utils/       (Helper functions and utilities)
+//   - styles/      (TailwindCSS and custom styles)
+
+// Sample: src/components/Header.tsx
+import React from 'react';
+import { useRouter } from 'next/router';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+
+const Header: React.FC = () => {
+  const router = useRouter();
+  return (
+    <AppBar position="static" className="bg-primary">
+      <Toolbar>
+        <Typography variant="h6" className="flex-grow">
+          EconUZ
+        </Typography>
+        <Button color="inherit" onClick={() => router.push('/login')}>Login</Button>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default Header;
+
+// BACKEND - Node.js (Express) & Apollo Server with TypeScript
+// Folder structure:
+// - server/
+//   - routes/        (REST API endpoints for different functionalities)
+//   - models/        (Schemas for MongoDB and PostgreSQL models)
+//   - graphql/       (Resolvers and schema for GraphQL API)
+//   - middleware/    (Authentication, error handling, etc.)
+//   - services/      (Business logic and service layer)
+
+// Sample: server/routes/auth.ts
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+
+const router = express.Router();
+
+// User login endpoint
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  // Authenticate user logic here (use bcrypt for password hashing)
+  const user = await findUserByEmail(email); // Function to find user in DB
+  if (user && bcrypt.compareSync(password, user.password)) {
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token });
+  } else {
+    res.status(401).json({ message: 'Invalid email or password' });
+  }
+});
+
+export default router;
+
+// DATABASE - PostgreSQL and MongoDB with Prisma ORM
+// Folder structure:
+// - database/
+//   - config/        (DB connection and credentials)
+//   - migrations/    (Scripts for managing database versions)
+//   - prisma/        (Prisma schema for database modeling)
+
+// Sample: prisma/schema.prisma
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  progress  Json?
+}
+
+// ADDITIONAL FEATURES
+// Real-Time Notifications with Socket.io & Redis for Pub/Sub
+// - server/socket.ts
+import { Server } from 'socket.io';
+import { createClient } from 'redis';
+
+const io = new Server(server);
+const redisClient = createClient();
+redisClient.connect();
+
+io.on('connection', (socket) => {
+  console.log('User connected');
+
+  socket.on('join-course', (courseId) => {
+    socket.join(courseId);
+    socket.to(courseId).emit('new-student-joined', { student: socket.id });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
+
+// GitHub Repository Best Practices
+// 1. .gitignore to prevent sensitive files like node_modules, env configs from being pushed.
+// 2. README.md explaining the project overview, technologies used, and instructions for local setup.
+// 3. CI/CD GitHub Actions for automated build testing, linting, and deployment.
+
+// CI/CD Example: .github/workflows/main.yml
+name: CI/CD Pipeline
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.x'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Lint
+      run: npm run lint
+
+    - name: Run Tests
+      run: npm test
+
+    - name: Build Project
+      run: npm run build
+
+// Docker Containerization
+// Dockerize both backend and frontend for easy deployment and scaling.
+// - Dockerfile for backend
+// - Dockerfile for frontend
+// - docker-compose.yml to orchestrate services
+
+// Sample: Dockerfile (Backend)
+FROM node:18-alpine
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+CMD ["npm", "start"]
+
+// Sample: docker-compose.yml
+version: '3.8'
+services:
+  backend:
+    build: ./server
+    ports:
+      - '4000:4000'
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
