@@ -1,204 +1,314 @@
-// Ultimate EconUZ Platform Codebase - Enhanced Design (Ready-to-Deploy Version)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconUZ Platform - Learn Economics for Free</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
 
-// FRONTEND - React & Next.js with TypeScript & TailwindCSS
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-// File structure:
-// - frontend/
-//   - src/
-//     - components/  (Reusable components like Header, Footer, Dashboard, Sidebar)
-//     - pages/       (Specific pages like Home, Courses, Profile, Real-Time Dashboard)
-//     - hooks/       (Custom React hooks for reusable logic)
-//     - context/     (Context API for managing global application state)
-//     - utils/       (Helper functions and utilities)
-//     - styles/      (TailwindCSS and custom styles)
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
 
-// frontend/src/components/Header.tsx
-import React from 'react';
-import { useRouter } from 'next/router';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+        nav ul li {
+            margin: 0 15px;
+        }
 
-const Header: React.FC = () => {
-  const router = useRouter();
-  return (
-    <AppBar position="static" className="bg-primary">
-      <Toolbar>
-        <Typography variant="h6" className="flex-grow">
-          EconUZ
-        </Typography>
-        <Button color="inherit" onClick={() => router.push('/login')}>Login</Button>
-      </Toolbar>
-    </AppBar>
-  );
-};
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
 
-export default Header;
+        nav ul li a:hover {
+            color: #17a2b8;
+        }
 
-// frontend/src/pages/index.tsx
-import React from 'react';
-import Header from '../components/Header';
+        /* Banner Section */
+        .banner {
+            background: url('https://images.unsplash.com/photo-1509057199576-632a47484ece?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHxsaWJyYXJ5fGVufDB8fHx8MTY1NzQ0NjI0Nw&ixlib=rb-1.2.1&q=80&w=1080') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+        }
 
-const Home: React.FC = () => {
-  return (
-    <div>
-      <Header />
-      <main>
-        <h1>Welcome to EconUZ - Learn Economics for Free</h1>
-      </main>
+        .banner h1 {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .banner p {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        .banner button {
+            background-color: #17a2b8;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 30px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .banner button:hover {
+            background-color: #138496;
+            transform: scale(1.05);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        section p {
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .feature-box {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            margin: 10px;
+            flex: 1;
+            max-width: 300px;
+            transition: transform 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-box i {
+            font-size: 2em;
+            color: #17a2b8;
+            margin-bottom: 15px;
+        }
+
+        .feature-box h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background-color: #343a40;
+            color: #fff;
+            position: relative;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer .social-icons {
+            margin-top: 10px;
+        }
+
+        footer .social-icons a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+
+        footer .social-icons a:hover {
+            color: #17a2b8;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EconUZ Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#live-classes">Live Classes</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#on-demand-videos">On-Demand Videos</a></li>
+                <li><a href="#subscription">Subscription</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="banner animate__animated animate__fadeIn">
+        <div>
+            <h1>Master Economics with EconUZ</h1>
+            <p>Achieve your learning goals with our free courses, live classes, and expert guidance.</p>
+            <button onclick="alert('Get Started with EconUZ!')">Get Started</button>
+        </div>
     </div>
-  );
-};
 
-export default Home;
+    <section id="features">
+        <h2>Our Features</h2>
+        <div class="features">
+            <div class="feature-box">
+                <i class="fas fa-book"></i>
+                <h3>Comprehensive Courses</h3>
+                <p>Get access to a variety of courses and improve your skills with detailed content analysis.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Expert Tips</h3>
+                <p>Learn from top economists with expert tips, strategies, and personalized guidance.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-chart-line"></i>
+                <h3>Progress Tracking</h3>
+                <p>Track your progress with smart analytics to identify your strengths and areas for improvement.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-user-graduate"></i>
+                <h3>Personalized Study Plans</h3>
+                <p>Receive personalized study plans based on your progress and learning needs.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-video"></i>
+                <h3>Interactive Videos</h3>
+                <p>Engage with interactive video lessons that cover all major economic topics in-depth.</p>
+            </div>
+        </div>
+    </section>
 
-// BACKEND - Node.js (Express) & Apollo Server with TypeScript
+    <section id="live-classes">
+        <h2>Live Classes</h2>
+        <p>Join our interactive live classes led by expert economics instructors. Ask questions in real-time and get immediate feedback to boost your understanding and confidence.</p>
+        <button onclick="alert('Live class schedule is coming soon!')">View Schedule</button>
+    </section>
 
-// File structure:
-// - server/
-//   - routes/        (REST API endpoints for different functionalities)
-//   - models/        (Schemas for MongoDB and PostgreSQL models)
-//   - graphql/       (Resolvers and schema for GraphQL API)
-//   - middleware/    (Authentication, error handling, etc.)
-//   - services/      (Business logic and service layer)
+    <section id="courses">
+        <h2>Economics Courses</h2>
+        <p>Explore our in-depth courses designed to provide a solid foundation in economics, from basic concepts to advanced theories.</p>
+        <button onclick="alert('Course catalog is coming soon!')">Explore Courses</button>
+    </section>
 
-// server/routes/auth.ts
-import express from 'express';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import dotenv from 'dotenv';
+    <section id="on-demand-videos" class="video-lessons">
+        <h2>On-Demand Video Lessons</h2>
+        <p>Access our library of on-demand video lessons anytime, anywhere. Learn at your own pace with content covering all key areas of economics.</p>
+        <div class="video-item">
+            <h4>Introduction to Microeconomics</h4>
+            <p>Learn the basic principles of microeconomics and how they apply to real-world scenarios.</p>
+            <button onclick="alert('Playing Introduction to Microeconomics...')">Watch Now</button>
+        </div>
+        <div class="video-item">
+            <h4>Macroeconomic Indicators</h4>
+            <p>Understand the major macroeconomic indicators and how they affect the economy.</p>
+            <button onclick="alert('Playing Macroeconomic Indicators...')">Watch Now</button>
+        </div>
+    </section>
 
-dotenv.config();
+    <section id="subscription">
+        <h2>Subscription Plans</h2>
+        <p>Choose a plan that works best for you and unlock all of our resources.</p>
+        <div class="features">
+            <div class="feature-box">
+                <h3>Basic Plan</h3>
+                <p>Access to basic courses and community forum. <strong>Free</strong></p>
+                <button onclick="subscribeUser('Basic')">Subscribe Now</button>
+            </div>
+            <div class="feature-box">
+                <h3>Premium Plan</h3>
+                <p>All features, including expert webinars, live classes, and progress tracking. <strong>$9.99/month</strong></p>
+                <button onclick="subscribeUser('Premium')">Subscribe Now</button>
+            </div>
+            <div class="feature-box">
+                <h3>Ultimate Plan</h3>
+                <p>Includes one-on-one tutoring, personalized study plans, and premium content. <strong>$19.99/month</strong></p>
+                <button onclick="subscribeUser('Ultimate')">Subscribe Now</button>
+            </div>
+        </div>
+    </section>
 
-const router = express.Router();
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Have questions or need help? Get in touch with us at <a href="mailto:info@econuz.com">info@econuz.com</a>.</p>
+    </section>
 
-// User login endpoint
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  // Authenticate user logic here (use bcrypt for password hashing)
-  const user = await findUserByEmail(email); // Function to find user in DB
-  if (user && bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
-  } else {
-    res.status(401).json({ message: 'Invalid email or password' });
-  }
-});
+    <footer>
+        <p>&copy; 2024 EconUZ Platform. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
 
-export default router;
-
-// DATABASE - PostgreSQL and MongoDB with Prisma ORM
-
-// File structure:
-// - database/
-//   - config/        (DB connection and credentials)
-//   - migrations/    (Scripts for managing database versions)
-//   - prisma/        (Prisma schema for database modeling)
-
-// database/prisma/schema.prisma
-model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
-  password  String
-  progress  Json?
-}
-
-// ADDITIONAL FEATURES
-
-// Real-Time Notifications with Socket.io & Redis for Pub/Sub
-// - server/socket.ts
-import { Server } from 'socket.io';
-import { createClient } from 'redis';
-
-const io = new Server(server);
-const redisClient = createClient();
-redisClient.connect();
-
-io.on('connection', (socket) => {
-  console.log('User connected');
-
-  socket.on('join-course', (courseId) => {
-    socket.join(courseId);
-    socket.to(courseId).emit('new-student-joined', { student: socket.id });
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
-});
-
-// GitHub Repository Best Practices
-// 1. .gitignore to prevent sensitive files like node_modules, env configs from being pushed.
-// 2. README.md explaining the project overview, technologies used, and instructions for local setup.
-// 3. CI/CD GitHub Actions for automated build testing, linting, and deployment.
-
-// CI/CD Example: .github/workflows/main.yml
-name: CI/CD Pipeline
-on: [push, pull_request]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18.x'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run Lint
-      run: npm run lint
-
-    - name: Run Tests
-      run: npm test
-
-    - name: Build Project
-      run: npm run build
-
-// Docker Containerization
-
-// Dockerize both backend and frontend for easy deployment and scaling.
-// - Dockerfile for backend
-// - Dockerfile for frontend
-// - docker-compose.yml to orchestrate services
-
-// Dockerfile (Backend)
-FROM node:18-alpine
-WORKDIR /app
-COPY package.json .
-RUN npm install
-COPY . .
-CMD ["npm", "start"]
-
-// Dockerfile (Frontend)
-FROM node:18-alpine
-WORKDIR /app
-COPY package.json .
-RUN npm install
-COPY . .
-RUN npm run build
-CMD ["npm", "run", "start"]
-
-// docker-compose.yml
-version: '3.8'
-services:
-  backend:
-    build: ./server
-    ports:
-      - '4000:4000'
-    environment:
-      - NODE_ENV=production
-      - JWT_SECRET=${JWT_SECRET}
-  frontend:
-    build: ./frontend
-    ports:
-      - '3000:3000'
-    environment:
-      - NODE_ENV=production
-    command: npm run start
-
-// Ensure proper environment variable configuration and local setup
-// Create an .env file in both backend and frontend directories for environment variables.
+    <script>
+        function subscribeUser(plan) {
+            alert(`You have chosen the ${plan} plan. Subscription successful!`);
+            // In a real application, this would involve payment processing and updating the user's subscription status.
+        }
+    </script>
+</body>
+</html>
