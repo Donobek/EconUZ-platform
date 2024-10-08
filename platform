@@ -1,16 +1,18 @@
-// Ultimate EconUZ Platform Codebase - Enhanced Design
+// Ultimate EconUZ Platform Codebase - Enhanced Design (Complete Code Ready for GitHub)
 
 // FRONTEND - React & Next.js with TypeScript & TailwindCSS
-// File structure:
-// - src/
-//   - components/  (Reusable components like Header, Footer, Dashboard, Sidebar)
-//   - pages/       (Specific pages like Home, Courses, Profile, Real-Time Dashboard)
-//   - hooks/       (Custom React hooks for reusable logic)
-//   - context/     (Context API for managing global application state)
-//   - utils/       (Helper functions and utilities)
-//   - styles/      (TailwindCSS and custom styles)
 
-// Sample: src/components/Header.tsx
+// File structure:
+// - frontend/
+//   - src/
+//     - components/  (Reusable components like Header, Footer, Dashboard, Sidebar)
+//     - pages/       (Specific pages like Home, Courses, Profile, Real-Time Dashboard)
+//     - hooks/       (Custom React hooks for reusable logic)
+//     - context/     (Context API for managing global application state)
+//     - utils/       (Helper functions and utilities)
+//     - styles/      (TailwindCSS and custom styles)
+
+// frontend/src/components/Header.tsx
 import React from 'react';
 import { useRouter } from 'next/router';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
@@ -31,8 +33,26 @@ const Header: React.FC = () => {
 
 export default Header;
 
+// frontend/src/pages/index.tsx
+import React from 'react';
+import Header from '../components/Header';
+
+const Home: React.FC = () => {
+  return (
+    <div>
+      <Header />
+      <main>
+        <h1>Welcome to EconUZ - Learn Economics for Free</h1>
+      </main>
+    </div>
+  );
+};
+
+export default Home;
+
 // BACKEND - Node.js (Express) & Apollo Server with TypeScript
-// Folder structure:
+
+// File structure:
 // - server/
 //   - routes/        (REST API endpoints for different functionalities)
 //   - models/        (Schemas for MongoDB and PostgreSQL models)
@@ -40,7 +60,7 @@ export default Header;
 //   - middleware/    (Authentication, error handling, etc.)
 //   - services/      (Business logic and service layer)
 
-// Sample: server/routes/auth.ts
+// server/routes/auth.ts
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
@@ -63,13 +83,14 @@ router.post('/login', async (req, res) => {
 export default router;
 
 // DATABASE - PostgreSQL and MongoDB with Prisma ORM
-// Folder structure:
+
+// File structure:
 // - database/
 //   - config/        (DB connection and credentials)
 //   - migrations/    (Scripts for managing database versions)
 //   - prisma/        (Prisma schema for database modeling)
 
-// Sample: prisma/schema.prisma
+// database/prisma/schema.prisma
 model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
@@ -79,6 +100,7 @@ model User {
 }
 
 // ADDITIONAL FEATURES
+
 // Real-Time Notifications with Socket.io & Redis for Pub/Sub
 // - server/socket.ts
 import { Server } from 'socket.io';
@@ -134,12 +156,13 @@ jobs:
       run: npm run build
 
 // Docker Containerization
+
 // Dockerize both backend and frontend for easy deployment and scaling.
 // - Dockerfile for backend
 // - Dockerfile for frontend
 // - docker-compose.yml to orchestrate services
 
-// Sample: Dockerfile (Backend)
+// Dockerfile (Backend)
 FROM node:18-alpine
 WORKDIR /app
 COPY package.json .
@@ -147,7 +170,15 @@ RUN npm install
 COPY . .
 CMD ["npm", "start"]
 
-// Sample: docker-compose.yml
+// Dockerfile (Frontend)
+FROM node:18-alpine
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+CMD ["npm", "run", "dev"]
+
+// docker-compose.yml
 version: '3.8'
 services:
   backend:
